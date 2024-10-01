@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body
-        className={`${font.className} antialiased w-full min-h-screen flex flex-col`}
+        className={`${font.className} antialiased min-h-screen flex flex-col`}
       >
         <ThemeProvider
           attribute="class"

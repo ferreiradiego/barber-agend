@@ -1,8 +1,8 @@
 import BarberShopItem from "@/components/home/barbershop-item";
 import Search from "@/components/home/search";
-import BookingItem from "@/components/shared/booking-item";
+// import BookingItem from "@/components/shared/booking-item";
 import { barbershops } from "@/core/constants/barbershop";
-import { corfirmedBookings } from "@/core/constants/confirmed-bookings";
+// import { corfirmedBookings } from "@/core/constants/confirmed-bookings";
 import { user } from "@/core/constants/user";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
@@ -45,9 +45,10 @@ const HomePage = () => {
           populares
         </h2>
 
-        <div className="flex gap-4 overflow-x-auto [&&::-webkit-scrollbar]:hidden pl-5 lg:container">
+        <div className="flex gap-4 overflow-x-auto [&&::-webkit-scrollbar]:hidden pl-5 lg:container md:flex-wrap items-center">
           {barbershops.map((barberShop) => (
-            <div key={barberShop.id} className="min-w-[167px] max-w-[167px]">
+            // <div key={barberShop.id} className="min-w-[167px] max-w-[167px]">
+            <div key={barberShop.id} className="flex flex-1">
               <BarberShopItem barbershop={barberShop} />
             </div>
           ))}
