@@ -9,7 +9,7 @@ export default function PrivateLayout({
   return (
     <>
       <Header />
-      <main className="flex-1 items-center justify-center bg-yellow-200 container">
+      <main className="flex-1 items-center justify-center">
         {children}
       </main>
       <Footer />

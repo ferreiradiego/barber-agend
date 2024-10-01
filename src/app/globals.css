@@ -79,6 +79,6 @@ body {
 
 @layer components {
   .container {
-    @apply max-w-7xl mx-auto px-10;
+    @apply max-w-7xl mx-auto px-5 lg:px-10;
   }
 }

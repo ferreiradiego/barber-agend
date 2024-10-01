@@ -12,19 +12,11 @@ import { Button } from "../ui/button";
 import { SheetHeader, SheetTitle } from "../ui/sheet";
 // import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-
-type User = {
-  name: string;
-  image: string;
-};
+import { user } from "@/core/constants/user";
 
 const SideMenu = () => {
   //   const { data, status } = useSession();
   //   const { user } = data ?? {};
-  const user: User = {
-    name: "John Doe",
-    image: "https://github.com/shadcn.png",
-  };
 
   const handleLogoutClick = async () => {
     // await signOut();

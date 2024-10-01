@@ -7,7 +7,7 @@ import SideMenu from "./side-menu";
 
 const Header = () => {
   return (
-    <header className="w-full flex items-center justify-between h-20 container">
+    <header className="w-full flex items-center justify-between h-20 container border-b-2 border-zinc-500/20">
       <Logo />
       <div className="flex gap-2 items-center justify-center">
         <Sheet>
