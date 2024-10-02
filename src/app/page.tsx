@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 const Page = () => {
   // const user = undefined;
 
-  if (!user) redirect("/login");
+  if (!user) redirect("/signin");
 
   return redirect("/home");
 };
