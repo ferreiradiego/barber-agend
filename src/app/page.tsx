@@ -1,10 +1,10 @@
-import { user } from "@/core/constants/user";
+// import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 
-const Page = () => {
-  // const user = undefined;
+const Page = async () => {
+  // const session = await auth();
 
-  if (!user) redirect("/signin");
+  // // if (!session?.user) redirect("/signin");
 
   return redirect("/home");
 };

@@ -9,11 +9,12 @@ generator client {
 
 model User {
   id                String          @id @default(cuid())
-  name              String?
-  // email         String          @unique
-  // emailVerified DateTime?
-  cellphone         String
+  name              String
+  email             String?         @unique
+  emailVerified     DateTime?
+  cellphone         String?         @unique
   cellphoneVerified DateTime?
+  password          String?
   image             String?
   accounts          Account[]
   sessions          Session[]

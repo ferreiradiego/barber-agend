@@ -1,5 +1,7 @@
-export { auth as middleware } from "@/auth"
-
+import NextAuth from "next-auth"
+import authConfig from "./auth.config"
+ 
+export const { auth: middleware } = NextAuth(authConfig)
 //  This middleware will redirect to the signin page if the user is not authenticated.
 // import { auth } from "@/auth";
 // export default auth((req) => {

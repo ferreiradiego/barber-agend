@@ -12,19 +12,16 @@ import { Button } from "../ui/button";
 import { SheetHeader, SheetTitle } from "../ui/sheet";
 // import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { user } from "@/core/constants/user";
 import { signout } from "@/actions/signout";
+import { User } from "next-auth";
 
-const SideMenu = () => {
-  //   const { data, status } = useSession();
-  //   const { user } = data ?? {};
+interface SideMenuProps {
+  user: User | undefined;
+}
 
+const SideMenu = ({ user }: SideMenuProps) => {
   const handleLogoutClick = async () => {
     await signout();
-  };
-
-  const handleLoginClick = async () => {
-    // await signIn();
   };
 
   return (
@@ -53,13 +50,11 @@ const SideMenu = () => {
             <UserIcon size={32} />
             <h2>Olá, faça seu login</h2>
           </div>
-          <Button
-            variant="secondary"
-            className="w-full justify-start"
-            onClick={handleLoginClick}
-          >
-            <LogInIcon className="mr-2" size={18} />
-            Fazer Login
+          <Button variant="secondary" className="w-full justify-start" asChild>
+            <Link href="/signin">
+              <LogInIcon className="mr-2" size={18} />
+              Fazer Login
+            </Link>
           </Button>
         </div>
       )}

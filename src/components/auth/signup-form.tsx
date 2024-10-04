@@ -1,10 +1,7 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "../ui/button";
-// import { SignupFormData } from "@/types/login";
-// import { signupSchema } from "@/schemas/login";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {
@@ -18,33 +15,50 @@ import {
 import { Input } from "../ui/input";
 import { SignupFormData, signupSchema } from "@/core";
 import { MaskedInput } from "../ui/masked-input";
-// import { signup } from "@/http/login";
+import { signinWithCredentials } from "@/actions/auth";
+import { useRouter } from "next/navigation";
+import { Icons } from "../shared/icons";
 
 const SignupForm = () => {
   const router = useRouter();
-
   const [error, setError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const form = useForm<SignupFormData>({
     resolver: zodResolver(signupSchema),
-    defaultValues: {
-      name: "Fulano",
-      cellphone: "(99) 9 9999-9999",
-      password: "123456",
-    },
+    // defaultValues: {
+    //   name: "Fulano",
+    //   cellphone: "(99) 9 9999-9999",
+    //   password: "123456",
+    // },
   });
 
   const onSubmit: SubmitHandler<SignupFormData> = async (data) => {
-    console.log({ data });
-    // const error = await signup(data);
+    setIsLoading(true);
+    const result = await fetch("/api/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
 
-    return;
-    if (!error) {
-      router.replace("/home");
+    if (result.status === 201) {
+      const error = await signinWithCredentials(data);
+
+      if (!error) {
+        router.replace("/home");
+        return;
+      }
+
+      setError(error.error);
       return;
     }
 
+    const { error } = await result.json();
+
     setError(error);
+    setIsLoading(false);
   };
 
   return (
@@ -92,9 +106,13 @@ const SignupForm = () => {
             <FormItem>
               <FormLabel>Senha</FormLabel>
               <FormControl>
-                <Input placeholder="Digite sua senha" {...field} />
+                <Input
+                  placeholder="Digite sua senha"
+                  {...field}
+                  type="password"
+                />
               </FormControl>
-              <FormMessage className="text-sm font-semibold" />
+              <FormMessage className="text-xs font-semibold" />
             </FormItem>
           )}
         />
@@ -102,6 +120,7 @@ const SignupForm = () => {
         {error && <p className="text-red-500 text-sm font-semibold">{error}</p>}
 
         <Button type="submit" size={"lg"}>
+          {isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
           Criar conta
         </Button>
       </form>

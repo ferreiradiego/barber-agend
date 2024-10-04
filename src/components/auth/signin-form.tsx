@@ -2,8 +2,6 @@
 
 import { SubmitHandler, useForm } from "react-hook-form";
 
-// import { useRouter } from "next/navigation";
-// import { useState } from "react";
 import { SigninFormData, signinSchema } from "@/core";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -17,11 +15,15 @@ import {
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { MaskedInput } from "../ui/masked-input";
-// import ReactInputMask from "react-input-mask";
+import { signinWithCredentials } from "@/actions/auth";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Icons } from "../shared/icons";
 
 const SigninForm = () => {
-  // const router = useRouter();
-  // const [error, setError] = useState<string>("");
+  const router = useRouter();
+  const [error, setError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const form = useForm<SigninFormData>({
     resolver: zodResolver(signinSchema),
@@ -32,17 +34,17 @@ const SigninForm = () => {
   });
 
   const onSubmit: SubmitHandler<SigninFormData> = async (data) => {
-    console.log({ data });
+    setIsLoading(true);
 
-    // const error = await signin(data);
+    const error = await signinWithCredentials(data);
 
-    // console.log({ error });
-    // if (!error) {
-    //   router.replace("/home");
-    //   return;
-    // }
+    if (!error) {
+      router.replace("/home");
+      return;
+    }
 
-    // setError(error);
+    setError(error.error);
+    setIsLoading(false);
   };
 
   return (
@@ -87,13 +89,10 @@ const SigninForm = () => {
           )}
         />
 
-        {/* {error && <p className="text-red-500 text-sm font-semibold">{error}</p>} */}
+        {error && <p className="text-red-500 text-sm font-semibold">{error}</p>}
 
-        <Button
-          size={"lg"}
-          type="submit"
-          //   onClick={() => console.log(form.getValues)}
-        >
+        <Button size={"lg"} type="submit" disabled={isLoading}>
+          {isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
           Entrar
         </Button>
       </form>

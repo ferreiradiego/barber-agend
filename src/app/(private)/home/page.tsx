@@ -1,14 +1,16 @@
+import { auth } from "@/auth";
 import BarberShopItem from "@/components/home/barbershop-item";
 import Search from "@/components/home/search";
 // import BookingItem from "@/components/shared/booking-item";
 import { barbershops } from "@/core/constants/barbershop";
 // import { corfirmedBookings } from "@/core/constants/confirmed-bookings";
-import { user } from "@/core/constants/user";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
-const HomePage = () => {
-  // const user = undefined;
+const HomePage = async () => {
+  const session = await auth();
+  const user = session?.user;
+
   return (
     <>
       <section className="flex flex-col gap-2 mt-5 container">

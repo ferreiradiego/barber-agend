@@ -28,6 +28,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         />
         {isPassword && (
           <button
+            type="button"
             className="size-6 cursor-pointer -ml-9"
             onClick={() => setShowPassword(!showPassword)}
           >
