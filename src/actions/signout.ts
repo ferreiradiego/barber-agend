@@ -2,8 +2,8 @@
 
 import { signOut } from "@/auth";
 
-const signout = async () => {
-  return await signOut({ redirectTo: "/signin" });
+const signout = async ({ redirectTo }: { redirectTo?: string }) => {
+  return await signOut({ redirectTo });
 };
 
 export { signout };

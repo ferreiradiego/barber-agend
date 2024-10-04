@@ -21,7 +21,7 @@ interface SideMenuProps {
 
 const SideMenu = ({ user }: SideMenuProps) => {
   const handleLogoutClick = async () => {
-    await signout();
+    await signout({});
   };
 
   return (

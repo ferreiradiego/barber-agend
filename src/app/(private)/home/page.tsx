@@ -1,3 +1,4 @@
+import { getUser } from "@/actions/user";
 import { auth } from "@/auth";
 import BarberShopItem from "@/components/home/barbershop-item";
 import Search from "@/components/home/search";
@@ -8,8 +9,7 @@ import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
 const HomePage = async () => {
-  const session = await auth();
-  const user = session?.user;
+  const user = await getUser();
 
   return (
     <>

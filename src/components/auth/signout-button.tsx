@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 
 const SignoutButton = () => {
   const handeSignoutClick = async () => {
-    await signout();
+    await signout({});
   };
   return (
     <Button onClick={handeSignoutClick} variant="link" size="icon">
