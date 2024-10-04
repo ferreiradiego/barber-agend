@@ -1,29 +1,21 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { Button } from "../ui/button";
 import { Icons } from "../shared/icons";
+import { signIn } from "@/auth";
+import { Button } from "../ui/button";
 
 const SigninWithGoogle = () => {
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    const delay = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(delay);
-  }, []);
-
   return (
-    <Button variant="outline" type="button" disabled={isLoading}>
-      {isLoading ? (
-        <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-      ) : (
+    <form
+      action={async () => {
+        "use server";
+        await signIn("google", { redirectTo: "/" });
+      }}
+      className="flex items-center justify-center"
+    >
+      <Button type="submit" variant="outline" className="flex w-full">
         <Icons.google className="mr-2 h-4 w-4" />
-      )}{" "}
-      Google
-    </Button>
+        Google
+      </Button>
+    </form>
   );
 };
 

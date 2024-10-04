@@ -13,13 +13,14 @@ import { SheetHeader, SheetTitle } from "../ui/sheet";
 // import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { user } from "@/core/constants/user";
+import { signout } from "@/actions/signout";
 
 const SideMenu = () => {
   //   const { data, status } = useSession();
   //   const { user } = data ?? {};
 
   const handleLogoutClick = async () => {
-    // await signOut();
+    await signout();
   };
 
   const handleLoginClick = async () => {
@@ -42,7 +43,6 @@ const SideMenu = () => {
             </Avatar>
             <h2 className="font-bold">{user?.name}</h2>
           </div>
-
           <Button variant="secondary" size="icon" onClick={handleLogoutClick}>
             <LogOutIcon />
           </Button>

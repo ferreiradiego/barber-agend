@@ -5,8 +5,14 @@ import { Button } from "../ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import SideMenu from "./side-menu";
 import Link from "next/link";
+import { auth } from "@/auth";
+import SignoutButton from "../auth/signout-button";
 
-const Header = () => {
+const Header = async () => {
+  const session = await auth();
+
+  // if (!session?.user) return null;
+
   return (
     <header className="w-full flex items-center justify-between h-20 container border-b-2 border-zinc-500/20">
       <Logo />
@@ -14,7 +20,11 @@ const Header = () => {
       <div className="hidden lg:flex gap-4 items-center">
         <nav className="flex gap-4 items-center justify-center mr-8">
           <Button asChild variant="link" className="rounded-2xl font-semibold">
-            <Link href="/signin">Entrar</Link>
+            {session?.user ? (
+              <SignoutButton />
+            ) : (
+              <Link href="/signin">Entrar</Link>
+            )}
           </Button>
           <Button asChild className="rounded-2xl font-semibold">
             <Link href="/dashboard">Área do barbeiro</Link>

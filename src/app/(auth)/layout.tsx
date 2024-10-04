@@ -1,3 +1,10 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Login | BarberAgend",
+  description: "Login na plataforma BarberAgend",
+};
+
 export default function AuthenticationLayout({
   children,
 }: Readonly<{
