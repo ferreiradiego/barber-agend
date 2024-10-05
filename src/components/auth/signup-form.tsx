@@ -18,6 +18,7 @@ import { MaskedInput } from "../ui/masked-input";
 import { useRouter } from "next/navigation";
 import { Icons } from "../shared/icons";
 import { signinWithCredentials } from "@/actions/signin";
+import { signup } from "@/actions/signup";
 
 const SignupForm = () => {
   const router = useRouter();
@@ -26,39 +27,33 @@ const SignupForm = () => {
 
   const form = useForm<SignupFormData>({
     resolver: zodResolver(signupSchema),
-    // defaultValues: {
-    //   name: "Fulano",
-    //   cellphone: "(99) 9 9999-9999",
-    //   password: "123456",
-    // },
+    defaultValues: {
+      name: "Fulano",
+      cellphone: "(99) 9 9999-9999",
+      password: "123456",
+    },
   });
 
   const onSubmit: SubmitHandler<SignupFormData> = async (data) => {
     setIsLoading(true);
-    const result = await fetch("/api/user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
 
-    if (result.status === 201) {
-      const error = await signinWithCredentials(data);
+    let withError = await signup(data);
 
-      if (!error) {
-        router.replace("/");
-        return;
-      }
-
-      setError(error.error);
+    if (withError) {
+      setError(withError.error);
+      setIsLoading(false);
       return;
     }
 
-    const { error } = await result.json();
+    withError = await signinWithCredentials(data);
 
-    setError(error);
-    setIsLoading(false);
+    if (withError) {
+      setError(withError.error);
+      setIsLoading(false);
+      return;
+    }
+
+    router.replace("/");
   };
 
   return (
