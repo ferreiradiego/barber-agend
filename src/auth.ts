@@ -1,22 +1,19 @@
 import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import authConfig from "./auth.config";
 import { getUserById } from "@/data/db/user";
 import { Role } from "@prisma/client";
 import { db } from "@/lib/prisma";
+import authConfig from "@/auth.config";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(db),
   session: { strategy: "jwt" },
   pages: {
     signIn: "/signin",
+    signOut: "/signout",
     error: "/error",
   },
-  // This is used to use the middleware and protect the routes
   callbacks: {
-    // authorized: async ({ auth }) => {
-    //   return !!auth;
-    // },
     async session({ session, token }) {
       if (token.sub && session.user) {
         session.user.id = token.sub;

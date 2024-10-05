@@ -33,7 +33,6 @@ interface ServiceItemProps {
 }
 
 const ServiceItem = ({ service, user, barberShop }: ServiceItemProps) => {
-  console.log(user);
   const [dayBookings, setDayBookings] = useState<Booking[]>([]);
   const [date, setDate] = useState<Date | undefined>(addDays(new Date(), 1));
   const [hour, setHour] = useState<string | undefined>();
@@ -46,8 +45,7 @@ const ServiceItem = ({ service, user, barberShop }: ServiceItemProps) => {
     const refreshAvailableHours = async () => {
       if (!date) return;
 
-      const _dayBookings = await getDayBookings(date, barberShop.id);
-      setDayBookings(_dayBookings);
+      setDayBookings(await getDayBookings(date, barberShop.id));
     };
 
     refreshAvailableHours();
@@ -63,8 +61,6 @@ const ServiceItem = ({ service, user, barberShop }: ServiceItemProps) => {
   };
 
   const handleBookingClick = () => {
-    console.log("entrou aqui");
-
     if (!user) {
       redirect("/signin");
     }
@@ -73,22 +69,15 @@ const ServiceItem = ({ service, user, barberShop }: ServiceItemProps) => {
   const handleBookingSubmit = async () => {
     setIsSubmitting(true);
 
-    console.log({ date, hour, user });
     try {
-      console.log("passou");
       if (!date || !hour || !user?.id) {
         return;
       }
-      console.log("passow");
 
       const dateHour = Number(hour.split(":")[0]);
 
-      console.log({ dateHour });
-
       const dateMinute = Number(hour.split(":")[1]);
       const newDate = setMinutes(setHours(date, dateHour), dateMinute);
-
-      console.log(newDate);
 
       await saveBooking({
         barberShopId: barberShop.id,

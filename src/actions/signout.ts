@@ -1,6 +1,6 @@
 "use server";
 
-import { signOut } from "../../auth";
+import { signOut } from "@/auth";
 
 
 const signout = async ({ redirectTo }: { redirectTo?: string }) => {

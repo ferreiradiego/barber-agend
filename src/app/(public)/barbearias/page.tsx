@@ -11,7 +11,6 @@ interface BarberShopsPageProps {
 }
 
 const BarberShopsPage = async ({ searchParams }: BarberShopsPageProps) => {
-  console.log(searchParams.search);
 
   if (!searchParams.search) {
     return redirect("/");

@@ -1,4 +1,4 @@
-import { signIn } from "../../../auth";
+import { signIn } from "@/auth";
 import { Icons } from "../shared/icons";
 import { Button } from "../ui/button";
 

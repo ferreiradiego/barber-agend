@@ -26,6 +26,8 @@ const BarberShopDetailsPage = async ({
     return notFound();
   }
 
+  console.log("BarberShopDetailsPage", barberShop);
+  
   return (
     <>
       <BarberShopInfo barberShop={barberShop} />

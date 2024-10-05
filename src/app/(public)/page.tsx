@@ -38,13 +38,14 @@ const HomePage = async () => {
         <section className="mt-5 container">
           <Search />
         </section>
+
         {confirmedBookings.length > 0 && (
           <section className="mt-6">
-            <h2 className="pl-5 text-xs uppercase text-gray-400 mb-3 font-bold">
+            <h2 className="text-xs uppercase text-gray-400 mb-3 font-bold container">
               Agendamentos
             </h2>
 
-            <div className="px-5 flex gap-4 overflow-x-auto [&&::-webkit-scrollbar]:hidden">
+            <div className="flex gap-4 overflow-x-auto [&&::-webkit-scrollbar]:hidden pl-5 lg:container md:flex-wrap items-center">
               {confirmedBookings.map((booking) => (
                 <BookingItem key={booking.id} booking={booking} />
               ))}
