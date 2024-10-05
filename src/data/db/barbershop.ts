@@ -11,7 +11,7 @@ const getBarberShopById = async (id: string) => {
   });
 };
 
-const getAllBarberShops = async ({
+const getBarberShops = async ({
   orderBy = "asc",
 }: {
   orderBy: "asc" | "desc";
@@ -34,4 +34,4 @@ const searchBarberShops = async (query: string) => {
   });
 };
 
-export { getBarberShopById, getAllBarberShops, searchBarberShops };
+export { getBarberShopById, getBarberShops, searchBarberShops };

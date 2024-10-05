@@ -3,58 +3,20 @@ import BarberShopItem from "@/components/home/barbershop-item";
 import Search from "@/components/home/search";
 import Header from "@/components/layout/header";
 import BookingItem from "@/components/shared/booking-item";
-import { db } from "@/lib/prisma";
+import { getBarberShops } from "@/data/db/barbershop";
+import { getBookingsByUser } from "@/data/db/booking";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
 const HomePage = async () => {
   const user = await getLoggedInUser();
 
-  // const [barberShops, recommendedBarberShops, confirmedBookings] =
-  //   await Promise.all([
-  //     db.barberShop.findMany({}),
-  //     db.barberShop.findMany({
-  //       orderBy: {
-  //         id: "desc",
-  //       },
-  //     }),
-  //     user
-  //       ? await db.booking.findMany({
-  //           where: {
-  //             userId: user.id,
-  //             date: {
-  //               gte: new Date(),
-  //             },
-  //           },
-  //           include: {
-  //             service: true,
-  //             barberShop: true,
-  //           },
-  //         })
-  //       : Promise.resolve([]),
-  //   ]);
-
-    const [barberShops, recommendedBarberShops, confirmedBookings] =
+  const [barberShops, recommendedBarberShops, confirmedBookings] =
     await Promise.all([
-      db.barberShop.findMany({}),
-      db.barberShop.findMany({
-        orderBy: {
-          id: "desc",
-        },
-      }),
-      user
-        ? await db.booking.findMany({
-            where: {
-              userId: user.id,
-              date: {
-                gte: new Date(),
-              },
-            },
-            include: {
-              service: true,
-              barberShop: true,
-            },
-          })
+      getBarberShops({ orderBy: "asc" }),
+      getBarberShops({ orderBy: "desc" }),
+      user && user.id
+        ? getBookingsByUser({ userId: user.id, status: "confirmed" })
         : Promise.resolve([]),
     ]);
 

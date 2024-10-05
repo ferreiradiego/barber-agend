@@ -1,15 +1,13 @@
-// import { BarberShop, Booking, Prisma, Service } from "@prisma/client";
 import { Card, CardContent } from "../ui/card";
 import { ptBR } from "date-fns/locale";
 import { format } from "date-fns";
+import { BarberShop, Booking, Service } from "@prisma/client";
 
 interface BookingInfoProps {
-  //   booking: Partial<Pick<Booking, "date">> & {
-  //     service: Pick<Service, "name" | "price">;
-  //     barberShop: Pick<BarberShop, "name">;
-  //   };
-
-  booking: any;
+  booking: Partial<Pick<Booking, "date">> & {
+    service: Pick<Service, "name" | "price">;
+    barberShop: Pick<BarberShop, "name">;
+  };
 }
 
 const BookingInfo = ({ booking }: BookingInfoProps) => {

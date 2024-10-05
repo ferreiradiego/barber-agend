@@ -54,6 +54,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
 
       toast.success("Agendamento cancelado com sucesso!");
     } catch (error) {
+      console.error(error);
       toast.error("Ocorreu um erro ao cancelar o agendamento.");
     } finally {
       setIsCancelingBooking(false);
