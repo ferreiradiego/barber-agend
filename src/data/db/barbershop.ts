@@ -1,7 +1,10 @@
-import { db } from "@/lib/prisma";
+import { BarberShop, BarberShopWithServices } from "@/core";
+import { db } from "@/lib";
 
-const getBarberShopById = async (id: string) => {
-  return await db.barberShop.findUnique({
+const getBarberShopById = async (
+  id: string
+): Promise<BarberShopWithServices> => {
+  const barberShop = await db.barberShop.findUnique({
     where: {
       id,
     },
@@ -9,13 +12,15 @@ const getBarberShopById = async (id: string) => {
       services: true,
     },
   });
+
+  return JSON.parse(JSON.stringify(barberShop));
 };
 
 const getBarberShops = async ({
   orderBy = "asc",
 }: {
   orderBy: "asc" | "desc";
-}) => {
+}): Promise<BarberShop[]> => {
   return await db.barberShop.findMany({
     orderBy: {
       id: orderBy,
@@ -23,7 +28,7 @@ const getBarberShops = async ({
   });
 };
 
-const searchBarberShops = async (query: string) => {
+const searchBarberShops = async (query: string): Promise<BarberShop[]> => {
   return await db.barberShop.findMany({
     where: {
       name: {

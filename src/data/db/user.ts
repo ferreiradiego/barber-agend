@@ -1,6 +1,7 @@
-import { db } from "@/lib/prisma";
+import { User } from "@/core";
+import { db } from "@/lib";
 
-const getUserByCellphone = async (cellphone: string) => {
+const getUserByCellphone = async (cellphone: string): Promise<User | null> => {
   return await db.user.findUnique({
     where: {
       cellphone,
@@ -8,7 +9,7 @@ const getUserByCellphone = async (cellphone: string) => {
   });
 };
 
-const getUserById = async (id: string) => {
+const getUserById = async (id: string): Promise<User | null> => {
   return await db.user.findUnique({
     where: {
       id,

@@ -3,8 +3,8 @@ import BarberShopItem from "@/components/home/barbershop-item";
 import Search from "@/components/home/search";
 import Header from "@/components/layout/header";
 import BookingItem from "@/components/shared/booking-item";
-import { getBarberShops } from "@/data/db/barbershop";
-import { getBookingsByUser } from "@/data/db/booking";
+import { getBarberShops, getBookingsByUser } from "@/data/db";
+
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
@@ -38,7 +38,6 @@ const HomePage = async () => {
         <section className="mt-5 container">
           <Search />
         </section>
-
         {confirmedBookings.length > 0 && (
           <section className="mt-6">
             <h2 className="text-xs uppercase text-gray-400 mb-3 font-bold container">

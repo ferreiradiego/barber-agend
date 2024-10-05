@@ -1,10 +1,14 @@
 "use server";
 
-import { db } from "@/lib/prisma";
+import { Booking } from "@/core";
+import { db } from "@/lib";
 import { endOfDay, startOfDay } from "date-fns";
 
-export const getDayBookings = async (date: Date, barberShopId: string) => {
-  const bookings = db.booking.findMany({
+export const getDayBookings = async (
+  date: Date,
+  barberShopId: string
+): Promise<Booking[]> => {
+  return await db.booking.findMany({
     where: {
       barberShopId,
       date: {
@@ -13,6 +17,4 @@ export const getDayBookings = async (date: Date, barberShopId: string) => {
       },
     },
   });
-
-  return bookings;
 };

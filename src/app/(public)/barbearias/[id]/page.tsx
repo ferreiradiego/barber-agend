@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import BarberShopInfo from "@/components/shared/barbershop-info";
 import ServiceItem from "@/components/shared/service-item";
 import { getLoggedInUser } from "@/actions/get-logged-in-user";
-import { getBarberShopById } from "@/data/db/barbershop";
+import { getBarberShopById } from "@/data/db";
 
 interface BarberShopDetailsPageProps {
   params: {
@@ -26,8 +26,6 @@ const BarberShopDetailsPage = async ({
     return notFound();
   }
 
-  console.log("BarberShopDetailsPage", barberShop);
-  
   return (
     <>
       <BarberShopInfo barberShop={barberShop} />

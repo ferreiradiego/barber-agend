@@ -1,6 +1,6 @@
 import { getLoggedInUser } from "@/actions/get-logged-in-user";
 import BookingItem from "@/components/shared/booking-item";
-import { getBookingsByUser } from "@/data/db/booking";
+import { getBookingsByUser } from "@/data/db";
 
 import { redirect } from "next/navigation";
 

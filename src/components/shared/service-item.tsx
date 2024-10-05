@@ -11,7 +11,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { BarberShop, Booking, Service } from "@prisma/client";
 import { ptBR } from "date-fns/locale/pt-BR";
 
 import Image from "next/image";
@@ -25,6 +24,8 @@ import { User } from "next-auth";
 import { generateDayTimeList } from "@/utils/hours";
 import { getDayBookings } from "@/actions/get-day-bookings";
 import { saveBooking } from "@/actions/save-booking";
+import { BarberShop, Booking, Service } from "@/core";
+
 
 interface ServiceItemProps {
   barberShop: BarberShop;
@@ -34,7 +35,7 @@ interface ServiceItemProps {
 
 const ServiceItem = ({ service, user, barberShop }: ServiceItemProps) => {
   const [dayBookings, setDayBookings] = useState<Booking[]>([]);
-  const [date, setDate] = useState<Date | undefined>(addDays(new Date(), 1));
+  const [date, setDate] = useState<Date | undefined>(addDays(new Date(), 0));
   const [hour, setHour] = useState<string | undefined>();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [sheetIsOpen, setSheetIsOpen] = useState(false);

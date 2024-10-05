@@ -2,8 +2,8 @@ import { CredentialsSignin, NextAuthConfig } from "next-auth";
 import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import { getUserByCellphone } from "@/data/db/user";
 import { signinSchema } from "@/core";
+import { getUserByCellphone } from "./data/db";
 
 class InvalidLoginError extends CredentialsSignin {
   code = "Credenciais inválidas";

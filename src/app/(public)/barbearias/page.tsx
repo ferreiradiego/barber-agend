@@ -1,7 +1,7 @@
 import BarberShopItem from "@/components/home/barbershop-item";
 import Search from "@/components/home/search";
 import Header from "@/components/layout/header";
-import { searchBarberShops } from "@/data/db/barbershop";
+import { searchBarberShops } from "@/data/db";
 import { redirect } from "next/navigation";
 
 interface BarberShopsPageProps {

@@ -1,6 +1,6 @@
 "use server";
 
-import { db } from "@/lib/prisma";
+import { db } from "@/lib";
 import { revalidatePath } from "next/cache";
 
 interface SaveBookingParams {
@@ -11,8 +11,6 @@ interface SaveBookingParams {
 }
 
 export const saveBooking = async (params: SaveBookingParams) => {
-  console.log("Saving booking", params);
-  
   await db.booking.create({
     data: {
       date: params.date,

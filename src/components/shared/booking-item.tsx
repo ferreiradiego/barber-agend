@@ -32,16 +32,11 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import BookingInfo from "./booking-info";
-import { Prisma } from "@prisma/client";
 import { cancelBooking } from "@/actions/cancel-booking";
+import { BookingDetails } from "@/core";
 
 interface BookingItemProps {
-  booking: Prisma.BookingGetPayload<{
-    include: {
-      service: true;
-      barberShop: true;
-    };
-  }>;
+  booking: BookingDetails;
 }
 const BookingItem = ({ booking }: BookingItemProps) => {
   const isBookingConfirmed = isFuture(booking.date);

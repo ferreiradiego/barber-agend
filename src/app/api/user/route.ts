@@ -1,7 +1,7 @@
 import { signupSchema } from "@/core";
 import { NextResponse } from "next/server";
 import { saltAndHashPassword } from "@/utils/password";
-import { db } from "@/lib/prisma";
+import { db } from "@/lib";
 
 export async function POST(request: Request) {
   const data = await request.json();

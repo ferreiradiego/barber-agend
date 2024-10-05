@@ -1,6 +1,8 @@
-import { db } from "@/lib/prisma";
+import { BookingDetails } from "@/core";
+import { db } from "@/lib";
 
 type BookingStatus = "completed" | "confirmed" | "cancelled";
+
 type GetBookingsByUserProps = {
   userId: string;
   status: BookingStatus;
@@ -9,11 +11,11 @@ type GetBookingsByUserProps = {
 const getBookingsByUser = async ({
   userId,
   status,
-}: GetBookingsByUserProps) => {
+}: GetBookingsByUserProps): Promise<BookingDetails[]> => {
   const dateFilter =
     status === "confirmed" ? { gte: new Date() } : { lt: new Date() };
 
-  return await db.booking.findMany({
+  const bookings = await db.booking.findMany({
     where: {
       userId: userId,
       date: dateFilter,
@@ -23,6 +25,8 @@ const getBookingsByUser = async ({
       barberShop: true,
     },
   });
+
+  return JSON.parse(JSON.stringify(bookings));
 };
 
 export { getBookingsByUser };
