@@ -1,5 +1,6 @@
 import Footer from "@/components/layout/footer";
 import Header from "@/components/layout/header";
+import { SessionProvider } from "next-auth/react";
 
 export default function PrivateLayout({
   children,
@@ -7,12 +8,10 @@ export default function PrivateLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
+    <SessionProvider>
       <Header />
-      <main className="flex-1 items-center justify-center">
-        {children}
-      </main>
+      <main className="flex-1 items-center justify-center">{children}</main>
       <Footer />
-    </>
+    </SessionProvider>
   );
 }

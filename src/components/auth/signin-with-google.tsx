@@ -1,5 +1,5 @@
+import { signIn } from "../../../auth";
 import { Icons } from "../shared/icons";
-import { signIn } from "@/auth";
 import { Button } from "../ui/button";
 
 const SigninWithGoogle = () => {

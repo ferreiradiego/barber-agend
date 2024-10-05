@@ -1,29 +1,19 @@
-"use client";
-
 import { Avatar, AvatarImage } from "../ui/avatar";
 import {
-  LogOutIcon,
   UserIcon,
   LogInIcon,
   HomeIcon,
   CalendarIcon,
+  LogOutIcon,
 } from "lucide-react";
 import { Button } from "../ui/button";
 import { SheetHeader, SheetTitle } from "../ui/sheet";
-// import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { signout } from "@/actions/signout";
-import { User } from "next-auth";
+import SignoutButton from "../auth/signout-button";
+import { getLoggedInUser } from "@/actions/get-logged-in-user";
 
-interface SideMenuProps {
-  user: User | undefined;
-}
-
-const SideMenu = ({ user }: SideMenuProps) => {
-  const handleLogoutClick = async () => {
-    await signout({});
-  };
-
+const SideMenu = async () => {
+  const user = await getLoggedInUser();
   return (
     <>
       <SheetHeader>
@@ -40,9 +30,9 @@ const SideMenu = ({ user }: SideMenuProps) => {
             </Avatar>
             <h2 className="font-bold">{user?.name}</h2>
           </div>
-          <Button variant="secondary" size="icon" onClick={handleLogoutClick}>
+          <SignoutButton variant={"secondary"}>
             <LogOutIcon />
-          </Button>
+          </SignoutButton>
         </div>
       ) : (
         <div className="flex flex-col px-5 py-6 gap-3">
@@ -69,7 +59,7 @@ const SideMenu = ({ user }: SideMenuProps) => {
 
         {user && (
           <Button variant="outline" className="justify-start" asChild>
-            <Link href={"/bookings"}>
+            <Link href={"/agendamentos"}>
               <CalendarIcon className="mr-2" size={18} />
               Agendamentos
             </Link>

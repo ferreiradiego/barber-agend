@@ -15,10 +15,10 @@ import {
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { MaskedInput } from "../ui/masked-input";
-import { signinWithCredentials } from "@/actions/auth";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Icons } from "../shared/icons";
+import { signinWithCredentials } from "@/actions/signin";
 
 const SigninForm = () => {
   const router = useRouter();
@@ -39,7 +39,7 @@ const SigninForm = () => {
     const error = await signinWithCredentials(data);
 
     if (!error) {
-      router.replace("/home");
+      router.replace("/");
       return;
     }
 

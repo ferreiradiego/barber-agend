@@ -37,7 +37,7 @@ const Search = ({ defaultValues }: SearchProps) => {
   const router = useRouter();
 
   const handleSubmit = (data: z.infer<typeof formSchema>) => {
-    router.push(`/barbershops?search=${data.search}`);
+    router.push(`/barbearias?search=${data.search}`);
   };
 
   return (

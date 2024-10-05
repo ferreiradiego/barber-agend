@@ -1,6 +1,5 @@
 "use client";
 
-// import { Prisma } from "@prisma/client";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Badge } from "../ui/badge";
 import { Card, CardContent } from "../ui/card";
@@ -18,7 +17,6 @@ import {
 import Image from "next/image";
 import { Loader2, Smartphone } from "lucide-react";
 import { Button } from "../ui/button";
-// import { cancelBooking } from "@/actions/cancel-booking";
 import { toast } from "sonner";
 import { useState } from "react";
 
@@ -34,33 +32,32 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import BookingInfo from "./booking-info";
+import { Prisma } from "@prisma/client";
+import { cancelBooking } from "@/actions/cancel-booking";
 
 interface BookingItemProps {
-  //   booking: Prisma.BookingGetPayload<{
-  //     include: {
-  //       service: true;
-  //       barberShop: true;
-  //     };
-  //   }>;
-  booking: any;
+  booking: Prisma.BookingGetPayload<{
+    include: {
+      service: true;
+      barberShop: true;
+    };
+  }>;
 }
-
 const BookingItem = ({ booking }: BookingItemProps) => {
   const isBookingConfirmed = isFuture(booking.date);
   const [isCancelingBooking, setIsCancelingBooking] = useState(false);
 
   const handleCancelBookingClick = async () => {
-    toast.success("Clicou para agendar!");
-    // try {
-    //   setIsCancelingBooking(true);
-    //   await cancelBooking(booking.id);
+    try {
+      setIsCancelingBooking(true);
+      await cancelBooking(booking.id);
 
-    //   toast.success("Agendamento cancelado com sucesso!");
-    // } catch (error) {
-    //   toast.error("Ocorreu um erro ao cancelar o agendamento.");
-    // } finally {
-    //   setIsCancelingBooking(false);
-    // }
+      toast.success("Agendamento cancelado com sucesso!");
+    } catch (error) {
+      toast.error("Ocorreu um erro ao cancelar o agendamento.");
+    } finally {
+      setIsCancelingBooking(false);
+    }
   };
 
   return (

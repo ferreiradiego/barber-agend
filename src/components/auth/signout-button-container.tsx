@@ -1,4 +1,4 @@
-import { signOut } from "@/auth";
+import { signOut } from "../../../auth";
 
 interface SignoutButtonContainerProps {
   redirectTo?: string;

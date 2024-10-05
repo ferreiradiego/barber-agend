@@ -7,6 +7,12 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum Role {
+  USER
+  ADMIN
+  BARBER
+}
+
 model User {
   id                String          @id @default(cuid())
   name              String
@@ -20,9 +26,10 @@ model User {
   sessions          Session[]
   // Optional for WebAuthn support
   Authenticator     Authenticator[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  role              Role            @default(USER)
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  Booking           Booking[]
 }
 
 model Account {
@@ -78,4 +85,37 @@ model Authenticator {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, credentialID])
+}
+
+model BarberShop {
+  id       String    @id @default(cuid())
+  name     String
+  address  String
+  phone    String
+  email    String
+  imageUrl String
+  services Service[]
+  bookings Booking[]
+}
+
+model Service {
+  id           String     @id @default(cuid())
+  name         String
+  description  String
+  price        Decimal    @db.Decimal(10, 2)
+  imageUrl     String
+  barberShopId String
+  barberShop   BarberShop @relation(fields: [barberShopId], references: [id])
+  bookings     Booking[]
+}
+
+model Booking {
+  id           String     @id @default(cuid())
+  date         DateTime
+  userId       String
+  user         User       @relation(fields: [userId], references: [id])
+  serviceId    String
+  service      Service    @relation(fields: [serviceId], references: [id])
+  barberShopId String
+  barberShop   BarberShop @relation(fields: [barberShopId], references: [id])
 }

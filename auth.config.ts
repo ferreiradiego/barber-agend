@@ -1,9 +1,9 @@
 import { CredentialsSignin, NextAuthConfig } from "next-auth";
 import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
-import { signinSchema } from "./core";
-import { prisma } from "./lib/prisma";
 import bcrypt from "bcryptjs";
+import { getUserByCellphone } from "@/data/db/user";
+import { signinSchema } from "@/core";
 
 class InvalidLoginError extends CredentialsSignin {
   code = "Credenciais inválidas";
@@ -29,11 +29,7 @@ export default {
 
         const { cellphone, password } = safeData.data;
 
-        const user = await prisma.user.findUnique({
-          where: {
-            cellphone,
-          },
-        });
+        const user = await getUserByCellphone(cellphone);
 
         if (!user) {
           throw new InvalidLoginError();
@@ -44,7 +40,6 @@ export default {
           user.password as string
         );
 
-        console.log(passwordMatch);
         if (!passwordMatch) {
           throw new CredentialsSignin();
         }

@@ -1,16 +1,15 @@
-import { MenuIcon } from "lucide-react";
+import { CalendarIcon, MenuIcon } from "lucide-react";
 import Logo from "../shared/logo";
 import ModeToggle from "../shared/mode-toogle";
 import { Button } from "../ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import SideMenu from "./side-menu";
 import Link from "next/link";
-import { auth } from "@/auth";
 import SignoutButton from "../auth/signout-button";
-import { getUser } from "@/actions/user";
+import { getLoggedInUser } from "@/actions/get-logged-in-user";
 
 const Header = async () => {
-  const user = await getUser();
+  const user = await getLoggedInUser();
 
   return (
     <header className="w-full flex items-center justify-between h-20 container border-b-2 border-zinc-500/20">
@@ -18,9 +17,23 @@ const Header = async () => {
 
       <div className="hidden lg:flex gap-4 items-center">
         <nav className="flex gap-4 items-center justify-center mr-8">
+          {user && (
+            <Button className="rounded-2xl" asChild>
+              <Link href={"/agendamentos"}>
+                <CalendarIcon className="mr-2" size={14} />
+                Meus agendamentos
+              </Link>
+            </Button>
+          )}
+
           <Button asChild className="rounded-2xl font-semibold">
-            {user ? <SignoutButton /> : <Link href="/signin">Entrar</Link>}
+            {user ? (
+              <SignoutButton>Sair</SignoutButton>
+            ) : (
+              <Link href="/signin">Entrar</Link>
+            )}
           </Button>
+
           {/* <Button asChild variant="link" className="rounded-2xl font-semibold">
             {user ? <SignoutButton /> : <Link href="/signin">Entrar</Link>}
           </Button> */}
@@ -38,7 +51,7 @@ const Header = async () => {
             </Button>
           </SheetTrigger>
           <SheetContent className="p-0">
-            <SideMenu user={user} />
+            <SideMenu />
           </SheetContent>
         </Sheet>
       </div>

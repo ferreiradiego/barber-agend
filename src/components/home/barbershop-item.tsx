@@ -3,21 +3,20 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Barbershop } from "@/core/constants/barbershop";
-// import { BarberShop } from "@prisma/client";
+import { BarberShop } from "@prisma/client";
 import { StarIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 interface BarberShopItemProps {
-  barbershop: Barbershop;
+  barbershop: BarberShop;
 }
 
 const BarberShopItem = ({ barbershop }: BarberShopItemProps) => {
   const router = useRouter();
 
   const handleBookingClick = () => {
-    router.push(`/barbershops/${barbershop.id}`);
+    router.push(`/barbearias/${barbershop.id}`);
   };
 
   return (

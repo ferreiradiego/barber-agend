@@ -15,9 +15,9 @@ import {
 import { Input } from "../ui/input";
 import { SignupFormData, signupSchema } from "@/core";
 import { MaskedInput } from "../ui/masked-input";
-import { signinWithCredentials } from "@/actions/auth";
 import { useRouter } from "next/navigation";
 import { Icons } from "../shared/icons";
+import { signinWithCredentials } from "@/actions/signin";
 
 const SignupForm = () => {
   const router = useRouter();
@@ -47,7 +47,7 @@ const SignupForm = () => {
       const error = await signinWithCredentials(data);
 
       if (!error) {
-        router.replace("/home");
+        router.replace("/");
         return;
       }
 
