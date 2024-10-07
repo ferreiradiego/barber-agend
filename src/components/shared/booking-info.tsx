@@ -2,7 +2,7 @@ import { Card, CardContent } from "../ui/card";
 import { ptBR } from "date-fns/locale";
 import { format } from "date-fns";
 import { BarberShop, Service } from "@/core";
-
+import { formatCurrency } from "@/utils/currency";
 
 interface BookingInfoProps {
   booking: {
@@ -19,10 +19,7 @@ const BookingInfo = ({ booking }: BookingInfoProps) => {
         <div className="flex justify-between text-sm">
           <h2 className="font-bold">{booking.service.name}</h2>
           <h3 className="font-bold">
-            {Intl.NumberFormat("pt-BR", {
-              style: "currency",
-              currency: "BRL",
-            }).format(Number(booking.service.price))}
+            {formatCurrency(Number(booking.service.price))}
           </h3>
         </div>
 

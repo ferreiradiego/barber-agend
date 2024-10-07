@@ -25,7 +25,7 @@ import { generateDayTimeList } from "@/utils/hours";
 import { getDayBookings } from "@/actions/get-day-bookings";
 import { saveBooking } from "@/actions/save-booking";
 import { BarberShop, Booking, Service } from "@/core";
-
+import { formatCurrency } from "@/utils/currency";
 
 interface ServiceItemProps {
   barberShop: BarberShop;
@@ -152,10 +152,7 @@ const ServiceItem = ({ service, user, barberShop }: ServiceItemProps) => {
             <p className="text-sm text-gray-400">{service.description}</p>
             <div className="flex items-center justify-between mt-4">
               <p className="text-primary font-bold text-sm">
-                {Intl.NumberFormat("pt-BR", {
-                  style: "currency",
-                  currency: "BRL",
-                }).format(Number(service.price))}
+                {formatCurrency(Number(service.price))}
               </p>
               <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
                 <SheetTrigger asChild>
@@ -163,36 +160,24 @@ const ServiceItem = ({ service, user, barberShop }: ServiceItemProps) => {
                     Agendar
                   </Button>
                 </SheetTrigger>
-                <SheetContent className="p-0">
+                <SheetContent className="p-0 lg:w-full">
                   <SheetHeader className="text-left px-5 py-6 border-b border-solid border-secondary">
                     <SheetTitle>Agendar serviço</SheetTitle>
                   </SheetHeader>
 
-                  <div className="py-6">
+                  <div className="py-6 flex w-full items-center justify-center">
                     <Calendar
                       mode="single"
                       selected={date}
                       onSelect={handleDateClick}
-                      locale={ptBR}
+                      className="rounded-md capitalize w-full items-center justify-center flex"
                       fromDate={addDays(new Date(), 1)}
-                      styles={{
-                        head_cell: {
-                          width: " 100%",
-                          textTransform: "capitalize",
-                        },
-                        cell: { width: "100%" },
-                        button: { width: "100%" },
-                        nav_button_previous: { width: "32px", height: "32px" },
-                        nav_button_next: { width: "32px", height: "32px" },
-                        caption: {
-                          textTransform: "capitalize",
-                        },
-                      }}
+                      locale={ptBR}
                     />
                   </div>
 
                   {date && (
-                    <div className="py-6 px-5 border-t border-solid border-secondary flex overflow-x-auto [&&::-webkit-scrollbar]:hidden gap-3">
+                    <div className="py-6 px-5 border-t border-solid border-secondary flex overflow-x-auto [&&::-webkit-scrollbar]:hidden gap-3 sm:flex sm:flex-wrap">
                       {timeList.map((time) => (
                         <Button
                           key={time}

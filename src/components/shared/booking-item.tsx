@@ -56,10 +56,15 @@ const BookingItem = ({ booking }: BookingItemProps) => {
     }
   };
 
+  const handleCopyPhoneClick = () => {
+    navigator.clipboard.writeText(booking.barberShop.phone);
+    toast.success("Número copiado para a área de transferência.");
+  };
+
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Card className="min-w-full">
+        <Card className="min-w-full cursor-pointer hover:bg-muted/20">
           <CardContent className="flex flex-row py-0 px-0">
             <div className="flex flex-col gap-3 flex-[3] py-5 pl-5">
               <Badge
@@ -139,7 +144,9 @@ const BookingItem = ({ booking }: BookingItemProps) => {
               <span className="text-sm">{booking.barberShop.phone}</span>
             </div>
             <div>
-              <Button variant="outline">Copiar</Button>
+              <Button variant="outline" onClick={handleCopyPhoneClick}>
+                Copiar
+              </Button>
             </div>
           </div>
 
