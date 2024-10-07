@@ -35,7 +35,7 @@ interface ServiceItemProps {
 
 const ServiceItem = ({ service, user, barberShop }: ServiceItemProps) => {
   const [dayBookings, setDayBookings] = useState<Booking[]>([]);
-  const [date, setDate] = useState<Date | undefined>(addDays(new Date(), 0));
+  const [date, setDate] = useState<Date | undefined>(addDays(new Date(), 1));
   const [hour, setHour] = useState<string | undefined>();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [sheetIsOpen, setSheetIsOpen] = useState(false);
